@@ -39,19 +39,56 @@ public class AreaBlockCommands implements CommandExecutor {
 				player.sendMessage("Affected Regions: " + results.size());
 				for (String name : results) {
 					player.sendMessage("- " + name);
-					instance.getSettings().blockRegion(name);
+					instance.getSettings().toggleRegion(name);
 				}
 			}
 			if (instance.external().isClaim(player.getLocation())) {
 				if (!instance.getSettings().getBlockedClaims()
 						.contains(instance.external().getClaimIDAt(player.getLocation()))) {
 					player.sendMessage("This Claim has been blocked!");
+					instance.getSettings().toggleClaim(instance.external().getClaimIDAt(player.getLocation()));
 				}
 			}
 		} else if (args[0].equalsIgnoreCase("unblock")) {
+			Set<String> results = new HashSet<>();
+			for (String region : instance.external().getAllRegionsAtLocation(player.getLocation())) {
+				for (String blockedRegion : instance.getSettings().getBlockedRegions()) {
+					if (blockedRegion.trim().equalsIgnoreCase(region.toLowerCase())) {
+						results.add(region.toLowerCase().trim());
+					}
+				}
+			}
+			if (!results.isEmpty()) {
+				player.sendMessage("Affected Regions: " + results.size());
+				for (String name : results) {
+					player.sendMessage("- " + name);
+					instance.getSettings().toggleRegion(name);
+				}
+			}
+			if (instance.external().isClaim(player.getLocation())) {
+				if (instance.getSettings().getBlockedClaims()
+						.contains(instance.external().getClaimIDAt(player.getLocation()))) {
+					player.sendMessage("This Claim has been unblocked!");
+					instance.getSettings().toggleClaim(instance.external().getClaimIDAt(player.getLocation()));
+				}
+			}
 
 		} else if (args[0].equalsIgnoreCase("toggle")) {
-
+			Set<String> results = new HashSet<>();
+			for (String region : instance.external().getAllRegionsAtLocation(player.getLocation())) {
+				results.add(region.toLowerCase().trim());
+			}
+			if (!results.isEmpty()) {
+				player.sendMessage("Affected Regions: " + results.size());
+				for (String name : results) {
+					player.sendMessage("- " + name);
+					instance.getSettings().toggleRegion(name);
+				}
+			}
+			if (instance.external().isClaim(player.getLocation())) {
+				player.sendMessage("This Claim's Blocked status has been toggled!");
+				instance.getSettings().toggleClaim(instance.external().getClaimIDAt(player.getLocation()));
+			}
 		}
 		return false;
 	}
