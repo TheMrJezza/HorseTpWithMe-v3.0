@@ -1,0 +1,19 @@
+# Should players need to pay in-game currency to teleport Animals?
+UseEconomy: false
+
+# How much in-game currency should players pay to teleport Animals?
+# This setting only applies to players who don't have any Custom Permission Fees. (See Below)
+# Set this to 0 to disable economy features for players that don't have any Custom Permission Fees
+GlobalTeleportFee: 1.50
+
+# These are customisable permission fees. You can Create as many as you want.
+# The permission node is: horsetpwithme.economy.'Permission Name'
+# Use these permissions to charge different fees for different players.
+PermissionFees:
+    Example: 2.00
+    Vip: 1.00
+    PoorMan: 0.50
+    RichMan: 5.00
+
+# As of HorseTpWithMe Version 3, all messages have been moved to the
+# Messages.yml file.

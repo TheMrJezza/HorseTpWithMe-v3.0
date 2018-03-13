@@ -1,0 +1,34 @@
+#########################################################################
+#                                                                       #
+# -------------------  HorseTpWithMe Configuration  ------------------- #
+#                                                                       #
+#########################################################################
+
+# When this is true, players will need permission to teleport
+# Horses/Donkeys/Mules/Pigs/Llamas
+UsePermissions: false
+
+# Do Horses need a Saddle to teleport? This does not affect
+# Leash Teleportation.
+RequireSaddle: false
+
+# When this is true, any animals/mobs that a player has on a
+# lead will teleport everywhere with that player.
+LeashTeleportation: true
+
+# If LeashTeleportation is True, this will determine how many
+# animals/mobs a player can teleport at the same time. 
+MaxOnLead: 5
+
+# If a Horse/Mule/Donkey with a chest teleports out of a
+# Disabled World, should the chest be cleared?
+ClearChests: false
+
+# Teleportation Into or Through a world on this list will
+# be disabled if the player doesn't have the permission 'horsetpwithme.worldbypass'
+# All names are "cAse_SenStiVE"
+DisabledWorlds:
+- ExaMpLE_WorLd
+
+# As of HorseTpWithMe Version 3, all messages have been moved to the
+# Messages.yml file.
