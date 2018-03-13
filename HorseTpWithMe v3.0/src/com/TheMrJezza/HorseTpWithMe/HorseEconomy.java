@@ -22,7 +22,20 @@ public class HorseEconomy {
 		econ = rsp.getProvider();
 	}
 	
-	public String chargePlayer(Player player, double price) {
+	public String chargePlayer(Player player) {
+		double price = instance.getSettings().getGlobalFee();
+		boolean set = false;
+		for (String perm : instance.getSettings().getEconomyPermissions()) {
+			if (player.hasPermission(perm)) {
+				if (!set) {
+					price = instance.getSettings().getFeeFromPermission(perm);
+					set = true;
+				} else {
+					price = Math.min(price, instance.getSettings().getFeeFromPermission(perm));
+				}
+			}
+		}
+		
 		if (econ == null) {
 			instance.getLogger().info("Economy is Enabled, however there is an issue accessing Vault.");
 			instance.getLogger().info("Is Vault installed?");

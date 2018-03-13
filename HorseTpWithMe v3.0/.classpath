@@ -3,12 +3,13 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Obios 1.14/cache/patched_1.12.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/Minecraft Files/HorseTpWithMe Dependencies/CreativeGates.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/Minecraft Files/HorseTpWithMe Dependencies/MassiveCore.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Vault.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/GriefPrevention.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/worldedit-bukkit-6.1.7.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/worldguard-6.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/iGates.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/CreativeGates.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/GriefPrevention.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/iGates.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/MassiveCore.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/PluginsBaker.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/Vault.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/worldedit-bukkit-6.1.7.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jerem/Desktop/Files/HorseTpWithMe Dependencies/worldguard-6.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
