@@ -27,10 +27,6 @@ public class Main extends JavaPlugin {
 		settings = null;
 		instance = null;
 	}
-
-	protected Main() {
-		// Not much here
-	}
 	
 	public static Main getInstance() {
 		return instance;
