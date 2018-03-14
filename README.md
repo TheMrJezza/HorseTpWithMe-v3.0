@@ -5,3 +5,5 @@ This is Version 3 of the HorseTpWithMe plugin for Bukkit/Spigot. This version of
 
 # Download the Beta
 https://github.com/TheMrJezza/HorseTpWithMe-v3.0/raw/master/HorseTpWithMe-v3.0_Beta.jar
+
+This isn't tested, so if you find something wrong, please tell me via Spigot.
