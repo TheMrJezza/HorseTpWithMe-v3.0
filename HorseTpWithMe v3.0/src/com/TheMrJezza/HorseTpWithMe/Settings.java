@@ -40,7 +40,7 @@ public class Settings {
 	protected String areaIsBlocked = "§4This claim/region has animal teleportation blocked.";
 
 	// Economy
-	private File economyFile = new File(instance.getDataFolder(), "Economy.yml");
+	private File economyFile = new File(instance.getDataFolder(), "EconomyConfig.yml");
 	private YamlConfiguration economy;
 	private boolean useEconomy;
 	private double globalFee = 0.00;
