@@ -37,6 +37,7 @@ public class Settings {
 	protected String economySuccessMessage = "§7Animal Teleportation Fee§8: §a{FEE}\n§7Remaining Balance§8: §a{BALANCE}";
 	protected String economyInsufficientFundsMessage = "§4You cannot afford to teleport any animals.\n§7Required§8: §a{FEE}";
 	protected String tooManyOnLeadMessage = "§4You had too many leashed mobs/animals to teleport.\n§7obLimit§8: §a{LIMIT}";
+	protected String areaIsBlocked = "§4This claim/region has animal teleportation blocked.";
 
 	// Economy
 	private File economyFile = new File(instance.getDataFolder(), "Economy.yml");
@@ -82,6 +83,7 @@ public class Settings {
 				messages.getString("EconomyInsufficientFunds", economyInsufficientFundsMessage));
 		tooManyOnLeadMessage = ChatColor.translateAlternateColorCodes('&',
 				messages.getString("TooManyOnLead", tooManyOnLeadMessage.replace("{LIMIT}", maxOnLead + "")));
+		areaIsBlocked = ChatColor.translateAlternateColorCodes('&', messages.getString("BlockedArea", areaIsBlocked));
 
 		// Economy
 		useEconomy = economy.getBoolean("UseEconomy");
@@ -188,5 +190,9 @@ public class Settings {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public int getLeashLimit() {
+		return maxOnLead;
 	}
 }

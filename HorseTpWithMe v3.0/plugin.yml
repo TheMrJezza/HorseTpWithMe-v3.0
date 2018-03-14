@@ -1,5 +1,30 @@
 name: HorseTpWithMe
 main: com.TheMrJezza.HorseTpWithMe.Main
 version: 1.0
-author: TheMrJezza
-description: Like your horse? Now you won't teleport without it!
+authors: [TheMrJezza]
+description: §aLike your horse? Now you won't teleport without it!
+permissions:
+  horsetpwithme.*:
+    default: op
+    children:
+      horsetpwithme.teleport.*: true
+  horsetpwithme.teleport.horse: {description: Teleport horses while riding them, default: op}
+  horsetpwithme.teleport.pig: {description: Teleport pigs while riding them, default: op}
+  horsetpwithme.teleport.llama: {description: Teleport llamas while riding them, default: op}
+  horsetpwithme.teleport.donkey: {description: Teleport donkeys/mules while riding them, default: op}
+  horsetpwithme.teleport.*:
+    default: op
+    children:
+      horsetpwithme.teleport.horse: true
+      horsetpwithme.teleport.pig: true
+      horsetpwithme.teleport.llama: true
+      horsetpwithme.teleport.donkey: true
+  horsetpwithme.nosaddle: {description: Teleport anaimals without a saddle, default: op}
+  horsetpwithme.ignoreblockedworlds: {description: Teleport animals into disabled worlds, default: op}
+  horsetpwithme.dontclearchests: {description: Don't clear donkey/mule/horse chests when teleporting out of a disabled world, default: op}
+  horsetpwithme.economy.free: {description: Dont charge a fee, even if economy is Enabled, default: op}
+  horsetpwithme.areablock.use: {description: Use the AreaBlock command, default: op}
+  horsetpwithme.areablock.override: {description: Teleport into blocked areas, default: op}
+commands:
+  areablock:
+  

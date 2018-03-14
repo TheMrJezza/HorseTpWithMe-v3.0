@@ -78,28 +78,28 @@ public class Listeners implements Listener {
 		}
 		if (Main.getInstance().getSettings().isUsingPermissions()) {
 			if (coreHorse.getType().name().toLowerCase().contains("horse")) {
-				if (!player.hasPermission("horsetpwithme.horse")) {
+				if (!player.hasPermission("horsetpwithme.teleport.horse")) {
 					uuidSet.add(player.getUniqueId());
 					return;
 				}
 				// Yes, I have thought about using a loop here...
 			} else if (coreHorse.getType().name().toLowerCase().equals("pig")) {
-				if (!player.hasPermission("horsetpwithme.pig")) {
+				if (!player.hasPermission("horsetpwithme.teleport.pig")) {
 					uuidSet.add(player.getUniqueId());
 					return;
 				}
 			} else if (coreHorse.getType().name().toLowerCase().equals("llama")) {
-				if (!player.hasPermission("horsetpwithme.llama")) {
+				if (!player.hasPermission("horsetpwithme.teleport.llama")) {
 					uuidSet.add(player.getUniqueId());
 					return;
 				}
 			} else if (coreHorse.getType().name().toLowerCase().equals("donkey")) {
-				if (!player.hasPermission("horsetpwithme.donkey")) {
+				if (!player.hasPermission("horsetpwithme.teleport.donkey")) {
 					uuidSet.add(player.getUniqueId());
 					return;
 				}
 			} else if (coreHorse.getType().name().toLowerCase().equals("mule")) {
-				if (!player.hasPermission("horsetpwithme.donkey")) {
+				if (!player.hasPermission("horsetpwithme.teleport.donkey")) {
 					uuidSet.add(player.getUniqueId());
 					return;
 				}
@@ -120,21 +120,29 @@ public class Listeners implements Listener {
 			return;
 		}
 		List<LivingEntity> entities = new ArrayList<>();
-		boolean onVehicle = false;
+		boolean onVehicle = false, limit = false;
 		// Regular Teleport
 		if (map.containsKey(player)) {
-			final AbstractHorse horse = map.get(player);
+			AbstractHorse horse = map.get(player);
 			entities.add(horse);
 			map.remove(player);
 			onVehicle = true;
 		}
 
 		// Leash Teleport
+		int current = 0;
 		for (LivingEntity e : getLeashedEntities(player)) {
+			if (current >= Main.getInstance().getSettings().getLeashLimit()) {
+				limit = true;
+				break;
+			}
 			entities.add(e);
+			current++;
 		}
 
-		final boolean sru = onVehicle;
+		if (entities.isEmpty())
+			return;
+		final boolean sru = onVehicle, limited = limit;
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -142,8 +150,14 @@ public class Listeners implements Listener {
 						evt.getFrom(), sru);
 				Bukkit.getPluginManager().callEvent(event);
 				if (event.isCancelled())
-
 					return;
+				if (!player.hasPermission("horsetpwithme.areablock.override")) {
+					if (Main.getInstance().external().isAreaBlocked(event.getTo(), player)) {
+						player.sendMessage(HTWM_Message.BLOCKED_AREA.toString());
+						return;
+					}
+				}
+				
 				if (!player.hasPermission("horsetpwithme.ignoreblockedworlds")) {
 					if (Main.getInstance().getSettings().isWorldBlocked(event.getTo().getWorld())) {
 						player.sendMessage(HTWM_Message.BLOCKED_WORLD.toString());
@@ -167,12 +181,14 @@ public class Listeners implements Listener {
 						}
 					}
 				}
-				
+
 				bulkTeleport(event.getEntities(), event.getTo());
 				if (event.playerInVehicle()) {
 					event.getEntities().get(0).addPassenger(event.getPlayer());
 				}
 				setLeadHolder(event.playerInVehicle(), event.getEntities(), evt.getPlayer());
+				if (limited)
+					player.sendMessage(HTWM_Message.TOO_MANY_ON_LEAD.toString());
 			}
 		}.runTaskLater(Main.getInstance(), 5l);
 	}
@@ -222,7 +238,7 @@ public class Listeners implements Listener {
 		if (entity instanceof ChestedHorse) {
 			ChestedHorse chested = (ChestedHorse) entity;
 			if (chested.isCarryingChest()) {
-				for (int i = entity instanceof Llama ? 2:1; i < chested.getInventory().getSize(); i++) {
+				for (int i = entity instanceof Llama ? 2 : 1; i < chested.getInventory().getSize(); i++) {
 					ItemStack item = chested.getInventory().getItem(i);
 					if (item == null)
 						continue;

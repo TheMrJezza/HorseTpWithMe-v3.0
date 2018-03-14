@@ -3,6 +3,7 @@ package com.TheMrJezza.HorseTpWithMe;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.TheMrJezza.HorseTpWithMe.Commands.AreaBlockCommands;
 import com.TheMrJezza.HorseTpWithMe.External.External;
 
 public class Main extends JavaPlugin {
@@ -17,9 +18,11 @@ public class Main extends JavaPlugin {
 		settings = new Settings();
 		external = new External();
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
+		getCommand("areablock").setExecutor(new AreaBlockCommands());
 	}
 
 	public void onDisable() {
+		getCommand("areablock").setExecutor(null);
 		external = null;
 		settings = null;
 		instance = null;

@@ -1,4 +1,5 @@
-
+# This is the message that players will see when they try to
+# teleport into a Disabled/Blocked World.
 BlockedWorldMessage: "&4This world is blocked!"
 
 # This is the Message that a player will see when they try
@@ -11,5 +12,16 @@ NoPermissionMessage: "&4You do not have permission to do that!"
 # {FEE} = The amount the player was charged.
 # {ANIMAL} = The type of animal teleported, for example, Horse.
 EconomyTeleportSuccess: "&7Animal Teleportation Fee&8: &a{FEE}\n&7Remaining Balance&8: &a{BALANCE}"
+
+# If Economy is enabled, and a player is not successfully charged
+# for teleporting animals, they'll see this message.
+# {BALANCE}, {FEE} and {ANIMAL} work the same as previously described.
 EconomyInsuffcientFunds: "&4You cannot afford to teleport any animals.\n&7Required&8: &a{FEE}"
-TooManyOnLead: "&4You had too many leashed mobs/animals to teleport.\n&7obLimit&8: &a{LIMIT}"
+
+# If leash teleportation is enabled, and a player tries to teleport more
+# leashed animals then what is allowed, they'll see this message.
+TooManyOnLead: "&4You can only teleport a maximum of {LIMIT} mobs/animals at a time."
+
+# This is the message that a player will see when they try to teleport
+# into a disabled claim/region.
+BlockedArea: "&4This claim/region is blocked from animal telepotation."

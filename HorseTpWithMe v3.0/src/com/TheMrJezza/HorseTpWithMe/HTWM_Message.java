@@ -30,5 +30,10 @@ public enum HTWM_Message {
 		public String toString() {
 			return Main.getInstance().getSettings().economyInsufficientFundsMessage;
 		}
-	};
+	}, BLOCKED_AREA {
+		@Override
+		public String toString() {
+			return Main.getInstance().getSettings().areaIsBlocked;
+		}
+	}
 }
