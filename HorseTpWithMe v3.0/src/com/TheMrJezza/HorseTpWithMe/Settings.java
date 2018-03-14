@@ -52,7 +52,7 @@ public class Settings {
 		if (!messagesFile.exists())
 			instance.saveResource("Messages.yml", false);
 		if (!economyFile.exists())
-			instance.saveResource("Economy.yml", false);
+			instance.saveResource("EconomyConfig.yml", false);
 		if (!areaBlockFile.exists())
 			instance.saveResource("AreaBlock.yml", false);
 		settings = YamlConfiguration.loadConfiguration(settingsFile);
