@@ -108,10 +108,6 @@ public class Listeners implements Listener {
 		map.put(player, coreHorse);
 	}
 
-	protected Listeners() {
-		// Not much here
-	}
-
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerTeleport(PlayerTeleportEvent evt) {
 		Player player = evt.getPlayer();
