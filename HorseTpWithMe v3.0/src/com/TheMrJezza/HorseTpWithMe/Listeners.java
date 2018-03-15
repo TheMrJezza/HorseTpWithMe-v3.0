@@ -128,7 +128,7 @@ public class Listeners implements Listener {
 			map.remove(player);
 			onVehicle = true;
 		}
-
+		
 		// Leash Teleport
 		int current = 0;
 		for (LivingEntity e : getLeashedEntities(player)) {
@@ -146,20 +146,16 @@ public class Listeners implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				AnimalTeleportEvent event = new AnimalTeleportEvent(entities, player, player.getLocation(),
-						evt.getFrom(), sru);
-				Bukkit.getPluginManager().callEvent(event);
-				if (event.isCancelled())
-					return;
+				Location toLoc = player.getLocation();
 				if (!player.hasPermission("horsetpwithme.areablock.override")) {
-					if (Main.getInstance().external().isAreaBlocked(event.getTo(), player)) {
+					if (Main.getInstance().external().isAreaBlocked(toLoc, player)) {
 						player.sendMessage(HTWM_Message.BLOCKED_AREA.toString());
 						return;
 					}
 				}
-				
+
 				if (!player.hasPermission("horsetpwithme.ignoreblockedworlds")) {
-					if (Main.getInstance().getSettings().isWorldBlocked(event.getTo().getWorld())) {
+					if (Main.getInstance().getSettings().isWorldBlocked(toLoc.getWorld())) {
 						player.sendMessage(HTWM_Message.BLOCKED_WORLD.toString());
 						return;
 					}
@@ -174,23 +170,31 @@ public class Listeners implements Listener {
 
 				if (Main.getInstance().getSettings().isClearingChests()) {
 					if (!player.hasPermission("horsetpwithme.dontclearchest")) {
-						if (Main.getInstance().getSettings().isWorldBlocked(event.getFrom().getWorld())) {
-							for (int i = 0; i < event.getEntities().size(); i++) {
-								clearChest(event.getEntities().get(i));
+						if (Main.getInstance().getSettings().isWorldBlocked(evt.getFrom().getWorld())) {
+							for (int i = 0; i < entities.size(); i++) {
+								clearChest(entities.get(i));
 							}
 						}
 					}
 				}
-
-				bulkTeleport(event.getEntities(), event.getTo());
-				if (event.playerInVehicle()) {
-					event.getEntities().get(0).addPassenger(event.getPlayer());
-				}
-				setLeadHolder(event.playerInVehicle(), event.getEntities(), evt.getPlayer());
-				if (limited)
-					player.sendMessage(HTWM_Message.TOO_MANY_ON_LEAD.toString());
+				AnimalTeleportEvent event = new AnimalTeleportEvent(entities, player, evt.getFrom(), toLoc, sru);
+				Bukkit.getPluginManager().callEvent(event);
+				if (event.isCancelled())
+					return;
+				new BukkitRunnable() {
+					@Override
+					public void run() {
+						bulkTeleport(entities, player.getLocation());
+						if (sru) {
+							entities.get(0).addPassenger(player);
+						}
+						setLeadHolder(sru, entities, evt.getPlayer());
+						if (limited)
+							player.sendMessage(HTWM_Message.TOO_MANY_ON_LEAD.toString());
+					}
+				}.runTaskLater(Main.getInstance(), 2l);
 			}
-		}.runTaskLater(Main.getInstance(), 5l);
+		}.runTaskLater(Main.getInstance(), 2l);
 	}
 
 	private boolean hasSaddle(AbstractHorse entity) {
@@ -204,7 +208,7 @@ public class Listeners implements Listener {
 		for (int i = 0; i < entities.size(); i++) {
 			LivingEntity e = entities.get(i);
 			e.teleport(loc);
-			e.setFallDistance(-999999999);
+			e.setFallDistance(-99999);
 		}
 	}
 
